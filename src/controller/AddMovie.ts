@@ -12,24 +12,29 @@ export async function addMovie(
   next: NextFunction
 ) {
   const authorization = request.headers.authorization;
-  if (!authorization) throw new Error("Missing authorization");
+  if (!authorization)
+    return response.status(401).json({ message: "Missing authorization" });
   if (!request.body || !request.body.title)
-    throw new Error("Missing movie title");
+    return response.status(400).json({ message: "Missing movie title" });
   const authorizationToken = authorization.split(" ")[1];
   const movieTitle = request.body.title;
 
-  if (!JWT_SECRET)
-    throw new Error(
+  try {
+    if (!JWT_SECRET)
+    new Error(
       "Missing JWT_SECRET env var. Set it and restart the server"
     );
   if (!OMDB_API)
-    throw new Error("Missing OMDB_API env var. Set it and restart the server");
+    throw Error("Missing OMDB_API env var. Set it and restart the server");
+  } catch(erorr) {
+      next(erorr)
+  }
+  
   let jwtPayload;
   try {
-    jwtPayload = <any>jwt.verify(authorizationToken, JWT_SECRET);
+    jwtPayload = await <any>jwt.verify(authorizationToken, JWT_SECRET);
   } catch (error) {
-    response.status(401);
-    return;
+    return response.status(401).json(error);
   }
 
   const { userId } = jwtPayload;
@@ -37,11 +42,9 @@ export async function addMovie(
   const userRepository = getRepository(User);
   const user = await userRepository.findOne({ id: userId });
   if (user.moviesUploaded > 5 && user.role === "basic")
-    return response
-      .status(401)
-      .json({
-        message: "You used all free uploads. Upgrade your accout to Premium.",
-      });
+    return response.status(401).json({
+      message: "You used all free uploads. Upgrade your accout to Premium.",
+    });
   const findMovie = await axios.get(
     `https://www.omdbapi.com/?apikey=${OMDB_API}&t=${movieTitle}`
   );
@@ -63,7 +66,10 @@ export async function addMovie(
     await userRepository.save(user);
     return response.json({ message: "OK" });
   } catch (error) {
-      if(error.code === "ER_DUP_ENTRY")
-    return response.status(500).json({message: `${Title} is already in database`});
+    if (error.code === "ER_DUP_ENTRY")
+      return response
+        .status(500)
+        .json({ message: `${Title} is already in database` });
+    else return response.status(500).json(error);
   }
 }

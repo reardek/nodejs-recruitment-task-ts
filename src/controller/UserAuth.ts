@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { Movie } from "../entity/Movie";
 import { auth, AuthError } from "../auth";
-import { JWT_SECRET } from "../server";
+import {JWT_SECRET} from "../server"
 
 export async function userAuth(
   request: Request,
