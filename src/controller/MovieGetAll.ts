@@ -7,5 +7,5 @@ export async function movieGetAll(request: Request, response: Response, next: Ne
 
   const movies = await movieRepository.find();
 
-  response.send(movies);
+  return response.send(movies);
 }
