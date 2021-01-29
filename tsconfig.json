@@ -5,7 +5,10 @@
       "rootDir": "./src",
       "outDir": "./build",
       "esModuleInterop": true,
-      "strict": true
+      "strict": false,
+      "experimentalDecorators": true,
+      "strictPropertyInitialization": false,
+      "emitDecoratorMetadata": true
     }
   }
   

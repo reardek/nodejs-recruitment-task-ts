@@ -1,31 +1,16 @@
 import jwt from "jsonwebtoken";
+import { getRepository } from "typeorm";
 import { IUserCredential } from "./interfaces";
+import { User } from "./entity/User";
+
 class AuthError extends Error {}
 
-const users = [
-  {
-    id: 123,
-    role: "basic",
-    name: "Basic Thomas",
-    username: "basic-thomas",
-    password: "sR-_pcoow-27-6PAwCD8",
-    moviesUploaded: 0,
-  },
-  {
-    id: 434,
-    role: "premium",
-    name: "Premium Jim",
-    username: "premium-jim",
-    password: "GBLtTyq3E_UNjFnpo9m6",
-    moviesUploaded: 0,
-  },
-];
-
-const authFactory = (secret: string) => (
-  userCredential: IUserCredential
-): string => {
-  const user = users.find((u) => u.username === userCredential.username);
-
+const auth = async (
+  userCredential: IUserCredential,
+  secret: string
+): Promise<string> => {
+  const userRepository = getRepository(User)
+  const user = await userRepository.findOne({username: userCredential.username});
   if (!user || user.password !== userCredential.password) {
     throw new AuthError("invalid username or password");
   }
@@ -45,4 +30,4 @@ const authFactory = (secret: string) => (
   );
 };
 
-export { authFactory, AuthError };
+export { auth, AuthError };
