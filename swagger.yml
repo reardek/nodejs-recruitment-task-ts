@@ -8,7 +8,12 @@ info:
 host: "localhost:3000"
 basePath: "/"
 schemes:
-- "http"
+  - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
 paths:
   /auth:
     post:
@@ -155,6 +160,8 @@ paths:
   /movie:
     post:
       summary: Add movie to database.
+      security:
+        - Bearer: []
       requestBody:
         required: true
         content:
