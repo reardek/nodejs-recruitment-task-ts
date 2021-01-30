@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -e ts,json,yml ./src/server.ts",
+    "build": "tsc",
     "prod": "ts-node ./src/server.ts",
-    "test": "jest --forceExit",
+    "test": "jest --forceExit -i",
     "test:watch": "jest --watch"
   },
   "keywords": [],

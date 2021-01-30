@@ -38,6 +38,6 @@ app.get("/users", userGetAll);
 app.get("/movies", movieGetAll);
 app.post("/movie", addMovie);
 
-const server = app.listen(PORT)
+const server = app.listen(0);
 
 export default server;

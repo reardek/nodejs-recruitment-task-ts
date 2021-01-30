@@ -7,7 +7,7 @@ RUN npm install
 
 COPY ./src ./src
 
-RUN npm run preprod
+RUN npm run build
 
 FROM node:14.15-alpine
 

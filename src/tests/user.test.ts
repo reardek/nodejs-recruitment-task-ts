@@ -1,7 +1,8 @@
 import connection, { request } from "./connectionTest";
 
-beforeAll(async () => {
+beforeAll(async (done) => {
   await connection.create();
+  done()
 });
 
 afterAll(async (done) => {

@@ -1,8 +1,9 @@
 import connection, { request } from "./connectionTest";
-import { getConnection, getRepository } from "typeorm";
 
-beforeAll(async () => {
+
+beforeAll(async (done) => {
   await connection.create();
+  done()
 });
 
 afterAll(async (done) => {

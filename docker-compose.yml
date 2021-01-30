@@ -1,14 +1,11 @@
 version: "3.4"
 services:
   app:
-    depends_on:
-      - db
     command: node build/server.js
     restart: always
     build:
       context: .
       dockerfile: Dockerfile
-      
     ports:
       - published: ${APP_PORT:-3000}
         target: 3000
@@ -19,9 +16,3 @@ services:
       MARIADB_PASSWORD: strong
       OMDB_API: b1f19e4c
       NODE_ENV: production
-  db:
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MARIADB_PASSWORD}
-      MYSQL_DATABASE: OMDB
