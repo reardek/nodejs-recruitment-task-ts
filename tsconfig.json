@@ -2,13 +2,13 @@
     "compilerOptions": {
       "target": "es6",
       "module": "commonjs",
-      "rootDir": "./src",
+      "rootDir": ".",
       "outDir": "./build",
       "esModuleInterop": true,
       "strict": false,
       "experimentalDecorators": true,
       "strictPropertyInitialization": false,
-      "emitDecoratorMetadata": true
+      "emitDecoratorMetadata": true,
     }
   }
   
