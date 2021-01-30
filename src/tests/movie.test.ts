@@ -60,7 +60,7 @@ describe("Movie test units", () => {
 
   it("Put more then 5 movies for basic user", async (done) => {
     const response = await sendMovies('basic-thomas', 'sR-_pcoow-27-6PAwCD8');
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(403);
     await connection.reset();
     done();
   });

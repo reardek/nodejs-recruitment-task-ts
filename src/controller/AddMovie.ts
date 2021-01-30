@@ -42,7 +42,7 @@ export async function addMovie(
   const userRepository = getRepository(User);
   const user = await userRepository.findOne({ id: userId });
   if (user.moviesUploaded > 5 && user.role === "basic")
-    return response.status(401).json({
+    return response.status(403).json({
       message: "You used all free uploads. Upgrade your accout to Premium.",
     });
   const findMovie = await axios.get(
