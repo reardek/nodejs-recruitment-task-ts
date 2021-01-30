@@ -1,19 +1,10 @@
-FROM node:14 AS builder
+FROM node:14-alpine
 
 WORKDIR /app
 
 COPY ./package.json ./package-lock.json ./tsconfig.json ./
+
 RUN npm install
+RUN npm install -g ts-node
 
-COPY ./src ./src
-
-RUN npm run build
-
-FROM node:14.15-alpine
-
-WORKDIR /app
-
-COPY --from=builder /app/build ./build
-COPY ./swagger.yml ./build
-
-CMD ["node", "./build/server.js"]
+CMD ["ts-node", "./src/server.ts"]

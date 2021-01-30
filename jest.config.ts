@@ -5,6 +5,6 @@ const config: Config.InitialOptions = {
   testEnvironment: "node",
   preset: "ts-jest",
   testRegex: "/tests/.*\\.(test|spec)?\\.(ts|tsx)$",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
 };
 export default config;

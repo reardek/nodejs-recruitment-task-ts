@@ -7,8 +7,8 @@
     "dev": "nodemon -e ts,json,yml ./src/server.ts",
     "build": "tsc",
     "prod": "ts-node ./src/server.ts",
-    "test": "jest --forceExit -i",
-    "test:watch": "jest --watch"
+    "test": "NODE_ENV=test jest --forceExit -i",
+    "test:watch": "NODE_ENV=test jest --watch"
   },
   "keywords": [],
   "author": "",

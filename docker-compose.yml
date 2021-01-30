@@ -1,16 +1,15 @@
 version: "3.4"
 services:
   app:
-    command: node build/server.js
+    command: ts-node ./src/server.ts
     restart: always
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - published: ${APP_PORT:-3000}
-        target: 3000
-    volumes:
-      - .:/app/
+      - "3000:3000"
+    volumes: 
+      - .:/app
     environment:
       JWT_SECRET: secret
       MARIADB_PASSWORD: strong

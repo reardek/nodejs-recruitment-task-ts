@@ -1,5 +1,3 @@
-
-const entityPath = process.env.NODE_ENV === 'production' ? "/src/entity/*.js" : "/src/entity/*.ts"
 module.exports = {
   type: "mariadb",
   host: "localhost",
@@ -7,7 +5,7 @@ module.exports = {
   username: "root",
   password: `${process.env.MARIADB_PASSWORD}`,
   database: "OMDB",
-  entities: [__dirname + entityPath],
+  entities: [__dirname + "/src/entity/*.ts"],
   dropSchema: true,
   logging: false,
 };
